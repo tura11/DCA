@@ -8,7 +8,7 @@ contract TokenX is ERC20{
 
 
     constructor()ERC20("TokenX", "TKX"){
-        _mint(msg.sender, 1000e18);
+        _mint(msg.sender, 1000000e18);
     }
 
 }
