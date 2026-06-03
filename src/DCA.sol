@@ -80,8 +80,12 @@ contract DCA {
 
         positions[msg.sender].lastExecuted = block.timestamp;
 
-
-        token.transfer(msg.sender, amountToSend);
+        if(token.balanceOf(address(this)) < amountToSend){
+            revert DCA__NotEnoughMoney();
+        }else{
+            token.transfer(msg.sender, amountToSend);
+        }
+        
 
 
         if(userTokenBalance == 0){
