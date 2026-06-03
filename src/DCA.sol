@@ -14,11 +14,14 @@ contract DCA {
     error DCA__YouCannotWithdrawYet();
     error DCA__NotEnoughMoneyForWithdrawal();
     error DCA__PositionNotActive();
+    error DCA__TransferFailed();
 
 
 
     event PositionSet(address indexed user, uint256 amount, uint256 period);
     event Deposited(address indexed user, uint256 amount);
+    event Withdrawal(address indexed user, uint256 amount);
+    event Canceled(address indexed user);
 
     struct Position {
         uint256 amount;
@@ -88,11 +91,27 @@ contract DCA {
         
 
 
-        if(userTokenBalance == 0){
+        if(balances[msg.sender] == 0){
             positions[msg.sender].active = false;
         }
 
+        emit Withdrawal(msg.sender, amountToSend);
+
         
+    }
+
+
+    function cancel() external {
+        if(!positions[msg.sender].active) revert DCA__PositionNotActive();
+        uint256 userBalance = balances[msg.sender];
+
+        balances[msg.sender] = 0;
+        positions[msg.sender].active = false;
+
+        (bool success,) = payable(msg.sender).call{value: userBalance}("");
+        if(!success) revert DCA__TransferFailed();
+
+        emit Canceled(msg.sender);
     }
 
 
