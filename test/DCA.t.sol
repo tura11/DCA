@@ -54,4 +54,11 @@ contract DCATest is Test{
         dca.setPosition(0, 3 days);
     }
 
+    function testSetPostionRevert() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        vm.expectRevert(DCA.DCA__PeriodMustBeMoreThanMinute.selector);
+        dca.setPosition(1000, 10);
+    }
+
 }
