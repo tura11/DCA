@@ -115,5 +115,16 @@ contract DCA {
     }
 
 
+    function tokenBalanceOf(address user) external view returns(uint256){
+        return token.balanceOf(user);
+
+    }
+
+
+    function balanceOf(address user) external view returns(uint256) {
+        return balances[user];
+    }
+
+
 
 }
