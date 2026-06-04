@@ -47,4 +47,11 @@ contract DCATest is Test{
         assertEq(dca.getUserPositionPeriod(user), 3 days);
     }
 
+    function testSetPositionRevertAmountZero() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        vm.expectRevert(DCA.DCA__AmountCantBeZero.selector);
+        dca.setPosition(0, 3 days);
+    }
+
 }
