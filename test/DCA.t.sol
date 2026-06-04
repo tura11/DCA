@@ -38,4 +38,13 @@ contract DCATest is Test{
         
     }
 
+
+    function testSetPosition() external {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        assertEq(dca.getUserPositionAmount(user), 1000);
+        assertEq(dca.getUserPositionPeriod(user), 3 days);
+    }
+
 }

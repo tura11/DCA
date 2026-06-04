@@ -126,5 +126,14 @@ contract DCA {
     }
 
 
+    function getUserPositionAmount(address user) external view returns(uint256){
+        return positions[user].amount;
+    }
+
+
+    function getUserPositionPeriod(address user) external view returns(uint256){
+        return positions[user].period;
+    }
+
 
 }
