@@ -54,11 +54,33 @@ contract DCATest is Test{
         dca.setPosition(0, 3 days);
     }
 
-    function testSetPostionRevert() public {
+    function testSetPostionRevertPeriodMustBeMoreThanMinute() public {
         vm.startPrank(user);
         dca.deposit{value: 5 ether}();
         vm.expectRevert(DCA.DCA__PeriodMustBeMoreThanMinute.selector);
         dca.setPosition(1000, 10);
     }
 
+
+    function testSetPositionRevertPositionAlreadyActive() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        vm.expectRevert(DCA.DCA__PositionAlreadyActive.selector);
+        dca.setPosition(1000, 7 days);
+    }
+
+
+    function testSuccesfulWithdrawal() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        vm.warp(4 days);
+        dca.withdraw();
+        vm.stopPrank();
+
+        assertEq(dca.tokenBalanceOf(user), 1000);
+
+
+    }
 }
