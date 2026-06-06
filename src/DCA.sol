@@ -60,7 +60,7 @@ contract DCA {
 
 
 
-    function deposit() external payable {
+    function deposit() public payable {
         if(msg.value == 0) revert DCA__AmountCantBeZero();
 
         balances[msg.sender] += msg.value;
@@ -115,6 +115,11 @@ contract DCA {
     }
 
 
+    receive() external payable{
+        deposit();
+    }
+
+
     function tokenBalanceOf(address user) external view returns(uint256){
         return token.balanceOf(user);
 
@@ -133,6 +138,11 @@ contract DCA {
 
     function getUserPositionPeriod(address user) external view returns(uint256){
         return positions[user].period;
+    }
+
+
+    function getUserPostions(address user) external view returns(Position memory) {
+        return positions[user];
     }
 
 
