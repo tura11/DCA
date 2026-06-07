@@ -22,6 +22,7 @@ contract DCA {
     event Deposited(address indexed user, uint256 amount);
     event Withdrawal(address indexed user, uint256 amount);
     event Canceled(address indexed user);
+    event PositionUpdated(address indexed user, uint256 newAmount, uint256 newPeriod);
 
     struct Position {
         uint256 amount;
@@ -98,6 +99,20 @@ contract DCA {
         emit Withdrawal(msg.sender, amountToSend);
 
         
+    }
+
+    function updatePosition(uint256 newAmount, uint256 newPeriod) external {
+        Position memory position = Position({
+            amount: newAmount,
+            period: newPeriod,
+            lastExecuted: block.timestamp,
+            active: true
+        });
+
+
+        positions[msg.sender] = position;
+
+        emit PositionUpdated(msg.sender, newAmount, newPeriod);
     }
 
 
