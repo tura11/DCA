@@ -3,9 +3,10 @@
 pragma solidity 0.8.30;
 
 import {TokenX} from "./TokenX.sol";
+import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
 
 
-contract DCA {
+contract DCA is AutomationCompatibleInterface{
 
     error DCA__AmountCantBeZero();
     error DCA__PeriodMustBeMoreThanMinute();
@@ -74,6 +75,16 @@ contract DCA {
         balances[msg.sender] += msg.value;
 
         emit Deposited(msg.sender, msg.value);
+    }
+
+
+    function checkUpkeep(bytes calldata  /* checkData */) external view returns (bool upkeepNeeded, bytes memory  /* performData */){
+        for(uint256 i = 0; i < users.length; i++){
+            address user = users[i];
+            if(positions[user].active && block.timestamp - positions[user].lastExecuted >= positions[user].period) {
+                return (true, abi.encode(user));
+            }
+        }
     }
 
 
