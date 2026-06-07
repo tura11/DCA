@@ -34,6 +34,8 @@ contract DCA {
 
     mapping(address => Position) positions;
     mapping(address => uint256) private balances;
+    mapping(address => bool) private isUser;
+    address[] public users;
 
     TokenX public token;
 
@@ -54,6 +56,11 @@ contract DCA {
         });
 
         positions[msg.sender] = position;
+        if(!isUser[msg.sender]){
+            users.push(msg.sender);
+            isUser[msg.sender] = true;
+        }
+        
 
         emit PositionSet(msg.sender, amount, period);
     }
@@ -101,10 +108,13 @@ contract DCA {
         
     }
 
-    function updatePosition(uint256 newAmount, uint256 newPeriod) external {
+    function updatePositionAmount(uint256 newAmount) external {
+        if(!positions[msg.sender].active) revert DCA__PositionNotActive();
+        if(newAmount == 0) revert DCA__AmountCantBeZero();
+        uint256 positonCurrentPeriod = positions[msg.sender].period;
         Position memory position = Position({
             amount: newAmount,
-            period: newPeriod,
+            period: positonCurrentPeriod,
             lastExecuted: block.timestamp,
             active: true
         });
@@ -112,7 +122,7 @@ contract DCA {
 
         positions[msg.sender] = position;
 
-        emit PositionUpdated(msg.sender, newAmount, newPeriod);
+        emit PositionUpdated(msg.sender, newAmount, positonCurrentPeriod);
     }
 
 
