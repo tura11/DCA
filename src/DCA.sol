@@ -4,9 +4,11 @@ pragma solidity 0.8.30;
 
 import {TokenX} from "./TokenX.sol";
 import {AutomationCompatibleInterface} from "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 
 contract DCA is AutomationCompatibleInterface{
+    using SafeERC20 for TokenX;
 
     error DCA__AmountCantBeZero();
     error DCA__PeriodMustBeMoreThanMinute();
@@ -85,6 +87,7 @@ contract DCA is AutomationCompatibleInterface{
                 return (true, abi.encode(user));
             }
         }
+        return (false, "");
     }
 
 
@@ -119,7 +122,7 @@ contract DCA is AutomationCompatibleInterface{
         if(token.balanceOf(address(this)) < amountToSend){
             revert DCA__NotEnoughMoney();
         }else{
-            token.transfer(user, amountToSend);
+            token.safeTransfer(user, amountToSend);
         }
         
 
