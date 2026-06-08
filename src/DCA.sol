@@ -88,35 +88,48 @@ contract DCA is AutomationCompatibleInterface{
     }
 
 
+    function performUpkeep(bytes calldata perfromData ) external {
+        address user = abi.decode(perfromData, (address));
+        _withdraw(user);
+    }
+
+
     function withdraw() external {
-        uint256 userTokenBalance = balances[msg.sender] * 1000; // 1ETH = 1000 TKX
-        if(!positions[msg.sender].active) revert DCA__PositionNotActive();
-        if(block.timestamp - positions[msg.sender].lastExecuted < positions[msg.sender].period) revert DCA__YouCannotWithdrawYet();
-        if(userTokenBalance < positions[msg.sender].amount) revert DCA__NotEnoughMoneyForWithdrawal();
+        _withdraw(msg.sender);
+
         
 
-        userTokenBalance -= positions[msg.sender].amount;
-        balances[msg.sender] -= positions[msg.sender].amount/1000;
+        
+    }
 
-        uint256 amountToSend = positions[msg.sender].amount;
+    function _withdraw(address user) internal{
+         uint256 userTokenBalance = balances[user] * 1000; // 1ETH = 1000 TKX
+        if(!positions[user].active) revert DCA__PositionNotActive();
+        if(block.timestamp - positions[user].lastExecuted < positions[user].period) revert DCA__YouCannotWithdrawYet();
+        if(userTokenBalance < positions[user].amount) revert DCA__NotEnoughMoneyForWithdrawal();
+        
 
-        positions[msg.sender].lastExecuted = block.timestamp;
+        userTokenBalance -= positions[user].amount;
+        balances[user] -= positions[user].amount/1000;
+
+        uint256 amountToSend = positions[user].amount;
+
+        positions[user].lastExecuted = block.timestamp;
 
         if(token.balanceOf(address(this)) < amountToSend){
             revert DCA__NotEnoughMoney();
         }else{
-            token.transfer(msg.sender, amountToSend);
+            token.transfer(user, amountToSend);
         }
         
 
 
-        if(balances[msg.sender] == 0){
-            positions[msg.sender].active = false;
+        if(balances[user] == 0){
+            positions[user].active = false;
         }
 
-        emit Withdrawal(msg.sender, amountToSend);
+        emit Withdrawal(user, amountToSend);
 
-        
     }
 
     function updatePositionAmount(uint256 newAmount) external {
