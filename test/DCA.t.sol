@@ -20,7 +20,7 @@ contract DCATest is Test{
     }
 
 
-    function testConstructor() public {
+    function testConstructor() public view {
         assertEq(dca.tokenBalanceOf(address(dca)), 1000000e18);
     }
 
