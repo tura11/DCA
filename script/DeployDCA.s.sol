@@ -11,4 +11,7 @@ contract DeployDCA is Script {
         vm.stopBroadcast();
         return dca;
     }
+
+
+    function test() public {}
 }

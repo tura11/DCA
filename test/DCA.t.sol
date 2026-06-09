@@ -83,4 +83,17 @@ contract DCATest is Test{
 
 
     }
+
+
+    function testCancelSuccesful() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        vm.warp(4 days);
+        dca.withdraw();
+        assertEq(dca.tokenBalanceOf(user), 1000);
+        dca.cancel();
+        assertEq(dca.balanceOf(user), 0);
+        
+    }
 }
