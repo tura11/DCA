@@ -97,5 +97,10 @@ contract DCATest is Test{
         
     }
 
-    
+    function testCheckUpkeepReturnsFalseWhenNoPositions() public {
+        (bool upkeepNeeded, bytes memory performData) = dca.checkUpkeep("");
+
+        assertFalse(upkeepNeeded);
+        assertEq(performData.length, 0);
+    }
 }
