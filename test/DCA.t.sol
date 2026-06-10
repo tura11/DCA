@@ -103,4 +103,50 @@ contract DCATest is Test{
         assertFalse(upkeepNeeded);
         assertEq(performData.length, 0);
     }
+
+
+    function testCheckUpKeepRetrunsFalseWhenPeriodisNotPassed() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        vm.stopPrank();
+
+        vm.warp(block.timestamp + 1 days);
+
+        (bool upkeepNeeded,) = dca.checkUpkeep("");
+        assertFalse(upkeepNeeded);
+    }
+
+    function testCheckUpKeepSuccesful() public {
+        vm.startPrank(user);
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+        vm.stopPrank();
+
+        vm.warp(block.timestamp + 4 days);
+
+
+        (bool upkeepNeeded, bytes memory performData) = dca.checkUpkeep("");
+        assertTrue(upkeepNeeded);
+        address decodedUser = abi.decode(performData, (address));
+        assertEq(decodedUser, user);
+    }
+
+
+    function testPerformUpkeepWithdrawsTokens() public {
+        vm.startPrank(user);
+
+        dca.deposit{value: 5 ether}();
+        dca.setPosition(1000, 3 days);
+
+        vm.stopPrank();
+
+        vm.warp(block.timestamp + 4 days);
+
+        (, bytes memory performData) = dca.checkUpkeep("");
+
+        dca.performUpkeep(performData);
+
+        assertEq(dca.tokenBalanceOf(user), 1000);
+    }
 }
