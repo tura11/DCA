@@ -93,7 +93,9 @@ contract DCATest is Test{
         dca.withdraw();
         assertEq(dca.tokenBalanceOf(user), 1000);
         dca.cancel();
-        assertEq(dca.balanceOf(user), 0);
+        assertEq(dca.balanceOf(user), 4 ether);
         
     }
+
+    
 }

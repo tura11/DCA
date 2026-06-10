@@ -113,7 +113,7 @@ contract DCA is AutomationCompatibleInterface{
         
 
         userTokenBalance -= positions[user].amount;
-        balances[user] -= positions[user].amount/1000;
+        balances[user] -= (positions[user].amount * 1 ether) / 1000;
 
         uint256 amountToSend = positions[user].amount;
 
@@ -155,13 +155,8 @@ contract DCA is AutomationCompatibleInterface{
 
     function cancel() external {
         if(!positions[msg.sender].active) revert DCA__PositionNotActive();
-        uint256 userBalance = balances[msg.sender];
 
-        balances[msg.sender] = 0;
         positions[msg.sender].active = false;
-
-        (bool success,) = payable(msg.sender).call{value: userBalance}("");
-        if(!success) revert DCA__TransferFailed();
 
         emit Canceled(msg.sender);
     }
