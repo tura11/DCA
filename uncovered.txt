@@ -1,0 +1,374 @@
+Compiling 38 files with Solc 0.8.30
+Solc 0.8.30 finished in 634.15ms
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> test/DCA.t.sol:126:5:
+    |
+126 |     function testCheckUpkeepReturnsFalseWhenNoPositions() public {
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Analysing contracts...
+Running tests...
+
+Ran 1 test for script/DeployDCA.s.sol:DeployDCA
+[PASS] test() (gas: 143)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 516.41µs (137.82µs CPU time)
+
+Ran 16 tests for test/DCA.t.sol:DCATest
+[PASS] testCancelSuccesful() (gas: 231690)
+[PASS] testCheckUpKeepRetrunsFalseWhenPeriodisNotPassed() (gas: 206016)
+[PASS] testCheckUpKeepSuccesful() (gas: 206576)
+[PASS] testCheckUpkeepReturnsFalseWhenNoPositions() (gas: 9756)
+[PASS] testConstructor() (gas: 14733)
+[PASS] testDeposit() (gas: 43238)
+[PASS] testDepositRevert() (gas: 11138)
+[PASS] testPerformUpkeepWithdrawsTokens() (gas: 252775)
+[PASS] testSetPosition() (gas: 204591)
+[PASS] testSetPositionRevertAmountZero() (gas: 43396)
+[PASS] testSetPositionRevertPositionAlreadyActive() (gas: 203161)
+[PASS] testSetPostionRevertPeriodMustBeMoreThanMinute() (gas: 43488)
+[PASS] testSuccesfulWithdrawal() (gas: 247411)
+[PASS] testWithdrawRevertNotEnoughMoney() (gas: 204271)
+[PASS] testWithdrawRevertPositonNotActive() (gas: 47403)
+[PASS] testWithdrawRevertYouCannotWithdrawYet() (gas: 204080)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 3.09ms (15.92ms CPU time)
+
+Ran 2 test suites in 10.02ms (3.60ms CPU time): 17 tests passed, 0 failed, 0 skipped (17 total tests)
+src/DCA.sol:
+- Line (location: (source ID: 35, lines: 45..48, bytes: 1336..1386), hits: 16) -> "constructor(){\n        token = new TokenX();\n    }"
+- Function "constructor" (location: (source ID: 35, lines: 45..48, bytes: 1336..1386), hits: 16) -> "constructor(){\n        token = new TokenX();\n    }"
+- Line (location: (source ID: 35, lines: 46..47, bytes: 1359..1379), hits: 16) -> "token = new TokenX()"
+- Statement (location: (source ID: 35, lines: 46..47, bytes: 1359..1379), hits: 16) -> "token = new TokenX()"
+- Line (location: (source ID: 35, lines: 50..70, bytes: 1393..2069), hits: 12) -> "function setPosition(uint256 amo...g.sender, amount, period);\n    }"
+- Function "setPosition" (location: (source ID: 35, lines: 50..70, bytes: 1393..2069), hits: 12) -> "function setPosition(uint256 amo...g.sender, amount, period);\n    }"
+- Line (location: (source ID: 35, lines: 51..52, bytes: 1468..1479), hits: 12) -> "amount == 0"
+- Statement (location: (source ID: 35, lines: 51..52, bytes: 1468..1479), hits: 12) -> "amount == 0"
+- Statement (location: (source ID: 35, lines: 51..52, bytes: 1481..1511), hits: 1) -> "revert DCA__AmountCantBeZero()"
+- Branch (branch: 0, path: 0) (location: (source ID: 35, lines: 51..52, bytes: 1481..1511), hits: 1) -> "revert DCA__AmountCantBeZero()"
+- Line (location: (source ID: 35, lines: 52..53, bytes: 1524..1535), hits: 11) -> "period < 60"
+- Statement (location: (source ID: 35, lines: 52..53, bytes: 1524..1535), hits: 11) -> "period < 60"
+- Statement (location: (source ID: 35, lines: 52..53, bytes: 1537..1577), hits: 1) -> "revert DCA__PeriodMustBeMoreThanMinute()"
+- Branch (branch: 1, path: 0) (location: (source ID: 35, lines: 52..53, bytes: 1537..1577), hits: 1) -> "revert DCA__PeriodMustBeMoreThanMinute()"
+- Line (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1) -> "revert DCA__PositionAlreadyActive()"
+- Statement (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1) -> "revert DCA__PositionAlreadyActive()"
+- Branch (branch: 2, path: 0) (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1) -> "revert DCA__PositionAlreadyActive()"
+- Line (location: (source ID: 35, lines: 54..60, bytes: 1665..1837), hits: 9) -> "Position memory position = Posit...         active: true\n        })"
+- Statement (location: (source ID: 35, lines: 54..60, bytes: 1665..1837), hits: 9) -> "Position memory position = Posit...         active: true\n        })"
+- Line (location: (source ID: 35, lines: 61..62, bytes: 1848..1880), hits: 9) -> "positions[msg.sender] = position"
+- Statement (location: (source ID: 35, lines: 61..62, bytes: 1848..1880), hits: 9) -> "positions[msg.sender] = position"
+- Line (location: (source ID: 35, lines: 62..63, bytes: 1893..1912), hits: 9) -> "!isUser[msg.sender]"
+- Statement (location: (source ID: 35, lines: 62..63, bytes: 1893..1912), hits: 9) -> "!isUser[msg.sender]"
+- Branch (branch: 3, path: 0) (location: (source ID: 35, lines: 62..66, bytes: 1913..1999), hits: 9) -> "{\n            users.push(msg.sen...er[msg.sender] = true;\n        }"
+- Line (location: (source ID: 35, lines: 63..64, bytes: 1927..1949), hits: 9) -> "users.push(msg.sender)"
+- Statement (location: (source ID: 35, lines: 63..64, bytes: 1927..1949), hits: 9) -> "users.push(msg.sender)"
+- Line (location: (source ID: 35, lines: 64..65, bytes: 1963..1988), hits: 9) -> "isUser[msg.sender] = true"
+- Statement (location: (source ID: 35, lines: 64..65, bytes: 1963..1988), hits: 9) -> "isUser[msg.sender] = true"
+- Line (location: (source ID: 35, lines: 68..69, bytes: 2018..2062), hits: 9) -> "emit PositionSet(msg.sender, amount, period)"
+- Statement (location: (source ID: 35, lines: 68..69, bytes: 2018..2062), hits: 9) -> "emit PositionSet(msg.sender, amount, period)"
+- Line (location: (source ID: 35, lines: 74..81, bytes: 2078..2270), hits: 14) -> "function deposit() public payabl...ed(msg.sender, msg.value);\n    }"
+- Function "deposit" (location: (source ID: 35, lines: 74..81, bytes: 2078..2270), hits: 14) -> "function deposit() public payabl...ed(msg.sender, msg.value);\n    }"
+- Line (location: (source ID: 35, lines: 75..76, bytes: 2125..2139), hits: 14) -> "msg.value == 0"
+- Statement (location: (source ID: 35, lines: 75..76, bytes: 2125..2139), hits: 14) -> "msg.value == 0"
+- Statement (location: (source ID: 35, lines: 75..76, bytes: 2141..2171), hits: 1) -> "revert DCA__AmountCantBeZero()"
+- Branch (branch: 4, path: 0) (location: (source ID: 35, lines: 75..76, bytes: 2141..2171), hits: 1) -> "revert DCA__AmountCantBeZero()"
+- Line (location: (source ID: 35, lines: 77..78, bytes: 2182..2215), hits: 13) -> "balances[msg.sender] += msg.value"
+- Statement (location: (source ID: 35, lines: 77..78, bytes: 2182..2215), hits: 13) -> "balances[msg.sender] += msg.value"
+- Line (location: (source ID: 35, lines: 79..80, bytes: 2226..2263), hits: 13) -> "emit Deposited(msg.sender, msg.value)"
+- Statement (location: (source ID: 35, lines: 79..80, bytes: 2226..2263), hits: 13) -> "emit Deposited(msg.sender, msg.value)"
+- Line (location: (source ID: 35, lines: 83..92, bytes: 2277..2718), hits: 4) -> "function checkUpkeep(bytes calld...       return (false, \"\");\n    }"
+- Function "checkUpkeep" (location: (source ID: 35, lines: 83..92, bytes: 2277..2718), hits: 4) -> "function checkUpkeep(bytes calld...       return (false, \"\");\n    }"
+- Line (location: (source ID: 35, lines: 84..85, bytes: 2419..2432), hits: 4) -> "uint256 i = 0"
+- Statement (location: (source ID: 35, lines: 84..85, bytes: 2419..2432), hits: 4) -> "uint256 i = 0"
+- Statement (location: (source ID: 35, lines: 84..85, bytes: 2434..2450), hits: 5) -> "i < users.length"
+- Statement (location: (source ID: 35, lines: 84..85, bytes: 2452..2455), hits: 1) -> "i++"
+- Line (location: (source ID: 35, lines: 85..86, bytes: 2470..2493), hits: 3) -> "address user = users[i]"
+- Statement (location: (source ID: 35, lines: 85..86, bytes: 2470..2493), hits: 3) -> "address user = users[i]"
+- Line (location: (source ID: 35, lines: 86..87, bytes: 2510..2608), hits: 3) -> "positions[user].active && block....ecuted >= positions[user].period"
+- Statement (location: (source ID: 35, lines: 86..87, bytes: 2510..2608), hits: 3) -> "positions[user].active && block....ecuted >= positions[user].period"
+- Statement (location: (source ID: 35, lines: 86..87, bytes: 2536..2582), hits: 3) -> "block.timestamp - positions[user].lastExecuted"
+- Statement (location: (source ID: 35, lines: 86..87, bytes: 2536..2608), hits: 3) -> "block.timestamp - positions[user...ecuted >= positions[user].period"
+- Branch (branch: 5, path: 0) (location: (source ID: 35, lines: 86..89, bytes: 2610..2674), hits: 2) -> "{\n                return (true, abi.encode(user));\n            }"
+- Line (location: (source ID: 35, lines: 87..88, bytes: 2628..2659), hits: 2) -> "return (true, abi.encode(user))"
+- Statement (location: (source ID: 35, lines: 87..88, bytes: 2628..2659), hits: 2) -> "return (true, abi.encode(user))"
+- Line (location: (source ID: 35, lines: 90..91, bytes: 2693..2711), hits: 2) -> "return (false, \"\")"
+- Statement (location: (source ID: 35, lines: 90..91, bytes: 2693..2711), hits: 2) -> "return (false, \"\")"
+- Line (location: (source ID: 35, lines: 94..98, bytes: 2725..2877), hits: 1) -> "function performUpkeep(bytes cal...;\n        _withdraw(user);\n    }"
+- Function "performUpkeep" (location: (source ID: 35, lines: 94..98, bytes: 2725..2877), hits: 1) -> "function performUpkeep(bytes cal...;\n        _withdraw(user);\n    }"
+- Line (location: (source ID: 35, lines: 95..96, bytes: 2796..2845), hits: 1) -> "address user = abi.decode(perfromData, (address))"
+- Statement (location: (source ID: 35, lines: 95..96, bytes: 2796..2845), hits: 1) -> "address user = abi.decode(perfromData, (address))"
+- Statement (location: (source ID: 35, lines: 95..96, bytes: 2811..2845), hits: 1) -> "abi.decode(perfromData, (address))"
+- Line (location: (source ID: 35, lines: 96..97, bytes: 2855..2870), hits: 1) -> "_withdraw(user)"
+- Statement (location: (source ID: 35, lines: 96..97, bytes: 2855..2870), hits: 1) -> "_withdraw(user)"
+- Line (location: (source ID: 35, lines: 100..107, bytes: 2884..2971), hits: 5) -> "function withdraw() external {\n ...nder);\n\n        \n\n        \n    }"
+- Function "withdraw" (location: (source ID: 35, lines: 100..107, bytes: 2884..2971), hits: 5) -> "function withdraw() external {\n ...nder);\n\n        \n\n        \n    }"
+- Line (location: (source ID: 35, lines: 101..102, bytes: 2923..2944), hits: 5) -> "_withdraw(msg.sender)"
+- Statement (location: (source ID: 35, lines: 101..102, bytes: 2923..2944), hits: 5) -> "_withdraw(msg.sender)"
+- Line (location: (source ID: 35, lines: 108..136, bytes: 2977..3857), hits: 6) -> "function _withdraw(address user)...awal(user, amountToSend);\n\n    }"
+- Function "_withdraw" (location: (source ID: 35, lines: 108..136, bytes: 2977..3857), hits: 6) -> "function _withdraw(address user)...awal(user, amountToSend);\n\n    }"
+- Line (location: (source ID: 35, lines: 109..110, bytes: 3028..3091), hits: 6) -> "uint256 ethRequired = (positions[user].amount * 1 ether) / 1000"
+- Statement (location: (source ID: 35, lines: 109..110, bytes: 3028..3091), hits: 6) -> "uint256 ethRequired = (positions[user].amount * 1 ether) / 1000"
+- Statement (location: (source ID: 35, lines: 109..110, bytes: 3050..3091), hits: 6) -> "(positions[user].amount * 1 ether) / 1000"
+- Line (location: (source ID: 35, lines: 110..111, bytes: 3104..3127), hits: 6) -> "!positions[user].active"
+- Statement (location: (source ID: 35, lines: 110..111, bytes: 3104..3127), hits: 6) -> "!positions[user].active"
+- Statement (location: (source ID: 35, lines: 110..111, bytes: 3129..3160), hits: 1) -> "revert DCA__PositionNotActive()"
+- Branch (branch: 6, path: 0) (location: (source ID: 35, lines: 110..111, bytes: 3129..3160), hits: 1) -> "revert DCA__PositionNotActive()"
+- Line (location: (source ID: 35, lines: 111..112, bytes: 3173..3219), hits: 5) -> "block.timestamp - positions[user].lastExecuted"
+- Statement (location: (source ID: 35, lines: 111..112, bytes: 3173..3219), hits: 5) -> "block.timestamp - positions[user].lastExecuted"
+- Statement (location: (source ID: 35, lines: 111..112, bytes: 3173..3244), hits: 5) -> "block.timestamp - positions[user...xecuted < positions[user].period"
+- Statement (location: (source ID: 35, lines: 111..112, bytes: 3246..3280), hits: 1) -> "revert DCA__YouCannotWithdrawYet()"
+- Branch (branch: 7, path: 0) (location: (source ID: 35, lines: 111..112, bytes: 3246..3280), hits: 1) -> "revert DCA__YouCannotWithdrawYet()"
+- Line (location: (source ID: 35, lines: 112..113, bytes: 3293..3321), hits: 4) -> "balances[user] < ethRequired"
+- Statement (location: (source ID: 35, lines: 112..113, bytes: 3293..3321), hits: 4) -> "balances[user] < ethRequired"
+- Statement (location: (source ID: 35, lines: 112..113, bytes: 3323..3364), hits: 1) -> "revert DCA__NotEnoughMoneyForWithdrawal()"
+- Branch (branch: 8, path: 0) (location: (source ID: 35, lines: 112..113, bytes: 3323..3364), hits: 1) -> "revert DCA__NotEnoughMoneyForWithdrawal()"
+- Line (location: (source ID: 35, lines: 115..116, bytes: 3384..3413), hits: 3) -> "balances[user] -= ethRequired"
+- Statement (location: (source ID: 35, lines: 115..116, bytes: 3384..3413), hits: 3) -> "balances[user] -= ethRequired"
+- Line (location: (source ID: 35, lines: 117..118, bytes: 3424..3469), hits: 3) -> "uint256 amountToSend = positions[user].amount"
+- Statement (location: (source ID: 35, lines: 117..118, bytes: 3424..3469), hits: 3) -> "uint256 amountToSend = positions[user].amount"
+- Line (location: (source ID: 35, lines: 119..120, bytes: 3480..3526), hits: 3) -> "positions[user].lastExecuted = block.timestamp"
+- Statement (location: (source ID: 35, lines: 119..120, bytes: 3480..3526), hits: 3) -> "positions[user].lastExecuted = block.timestamp"
+- Line (location: (source ID: 35, lines: 121..122, bytes: 3540..3570), hits: 3) -> "token.balanceOf(address(this))"
+- Statement (location: (source ID: 35, lines: 121..122, bytes: 3540..3570), hits: 3) -> "token.balanceOf(address(this))"
+- Statement (location: (source ID: 35, lines: 121..122, bytes: 3540..3585), hits: 3) -> "token.balanceOf(address(this)) < amountToSend"
+- Branch (branch: 9, path: 0) (location: (source ID: 35, lines: 121..124, bytes: 3586..3639), hits: 0) -> "{\n            revert DCA__NotEnoughMoney();\n        }"
+- Branch (branch: 9, path: 1) (location: (source ID: 35, lines: 121..126, bytes: 3537..3706), hits: 3) -> "if(token.balanceOf(address(this)...r(user, amountToSend);\n        }"
+- Line (location: (source ID: 35, lines: 122..123, bytes: 3600..3628), hits: 0) -> "revert DCA__NotEnoughMoney()"
+- Statement (location: (source ID: 35, lines: 122..123, bytes: 3600..3628), hits: 0) -> "revert DCA__NotEnoughMoney()"
+- Line (location: (source ID: 35, lines: 124..125, bytes: 3657..3695), hits: 3) -> "token.safeTransfer(user, amountToSend)"
+- Statement (location: (source ID: 35, lines: 124..125, bytes: 3657..3695), hits: 3) -> "token.safeTransfer(user, amountToSend)"
+- Line (location: (source ID: 35, lines: 129..130, bytes: 3729..3748), hits: 3) -> "balances[user] == 0"
+- Statement (location: (source ID: 35, lines: 129..130, bytes: 3729..3748), hits: 3) -> "balances[user] == 0"
+- Branch (branch: 10, path: 0) (location: (source ID: 35, lines: 129..132, bytes: 3749..3804), hits: 0) -> "{\n            positions[user].active = false;\n        }"
+- Line (location: (source ID: 35, lines: 130..131, bytes: 3763..3793), hits: 0) -> "positions[user].active = false"
+- Statement (location: (source ID: 35, lines: 130..131, bytes: 3763..3793), hits: 0) -> "positions[user].active = false"
+- Line (location: (source ID: 35, lines: 133..134, bytes: 3814..3849), hits: 3) -> "emit Withdrawal(user, amountToSend)"
+- Statement (location: (source ID: 35, lines: 133..134, bytes: 3814..3849), hits: 3) -> "emit Withdrawal(user, amountToSend)"
+- Line (location: (source ID: 35, lines: 137..153, bytes: 3863..4450), hits: 0) -> "function updatePositionAmount(ui...nt, positonCurrentPeriod);\n    }"
+- Function "updatePositionAmount" (location: (source ID: 35, lines: 137..153, bytes: 3863..4450), hits: 0) -> "function updatePositionAmount(ui...nt, positonCurrentPeriod);\n    }"
+- Line (location: (source ID: 35, lines: 138..139, bytes: 3934..3963), hits: 0) -> "!positions[msg.sender].active"
+- Statement (location: (source ID: 35, lines: 138..139, bytes: 3934..3963), hits: 0) -> "!positions[msg.sender].active"
+- Statement (location: (source ID: 35, lines: 138..139, bytes: 3965..3996), hits: 0) -> "revert DCA__PositionNotActive()"
+- Branch (branch: 11, path: 0) (location: (source ID: 35, lines: 138..139, bytes: 3965..3996), hits: 0) -> "revert DCA__PositionNotActive()"
+- Line (location: (source ID: 35, lines: 139..140, bytes: 4009..4023), hits: 0) -> "newAmount == 0"
+- Statement (location: (source ID: 35, lines: 139..140, bytes: 4009..4023), hits: 0) -> "newAmount == 0"
+- Statement (location: (source ID: 35, lines: 139..140, bytes: 4025..4055), hits: 0) -> "revert DCA__AmountCantBeZero()"
+- Branch (branch: 12, path: 0) (location: (source ID: 35, lines: 139..140, bytes: 4025..4055), hits: 0) -> "revert DCA__AmountCantBeZero()"
+- Line (location: (source ID: 35, lines: 140..141, bytes: 4065..4124), hits: 0) -> "uint256 positonCurrentPeriod = positions[msg.sender].period"
+- Statement (location: (source ID: 35, lines: 140..141, bytes: 4065..4124), hits: 0) -> "uint256 positonCurrentPeriod = positions[msg.sender].period"
+- Line (location: (source ID: 35, lines: 141..147, bytes: 4134..4323), hits: 0) -> "Position memory position = Posit...         active: true\n        })"
+- Statement (location: (source ID: 35, lines: 141..147, bytes: 4134..4323), hits: 0) -> "Position memory position = Posit...         active: true\n        })"
+- Line (location: (source ID: 35, lines: 149..150, bytes: 4335..4367), hits: 0) -> "positions[msg.sender] = position"
+- Statement (location: (source ID: 35, lines: 149..150, bytes: 4335..4367), hits: 0) -> "positions[msg.sender] = position"
+- Line (location: (source ID: 35, lines: 151..152, bytes: 4378..4443), hits: 0) -> "emit PositionUpdated(msg.sender,...newAmount, positonCurrentPeriod)"
+- Statement (location: (source ID: 35, lines: 151..152, bytes: 4378..4443), hits: 0) -> "emit PositionUpdated(msg.sender,...newAmount, positonCurrentPeriod)"
+- Line (location: (source ID: 35, lines: 155..162, bytes: 4457..4649), hits: 1) -> "function cancel() external {\n   ...emit Canceled(msg.sender);\n    }"
+- Function "cancel" (location: (source ID: 35, lines: 155..162, bytes: 4457..4649), hits: 1) -> "function cancel() external {\n   ...emit Canceled(msg.sender);\n    }"
+- Line (location: (source ID: 35, lines: 156..157, bytes: 4497..4526), hits: 1) -> "!positions[msg.sender].active"
+- Statement (location: (source ID: 35, lines: 156..157, bytes: 4497..4526), hits: 1) -> "!positions[msg.sender].active"
+- Statement (location: (source ID: 35, lines: 156..157, bytes: 4528..4559), hits: 0) -> "revert DCA__PositionNotActive()"
+- Branch (branch: 13, path: 0) (location: (source ID: 35, lines: 156..157, bytes: 4528..4559), hits: 0) -> "revert DCA__PositionNotActive()"
+- Line (location: (source ID: 35, lines: 158..159, bytes: 4570..4606), hits: 1) -> "positions[msg.sender].active = false"
+- Statement (location: (source ID: 35, lines: 158..159, bytes: 4570..4606), hits: 1) -> "positions[msg.sender].active = false"
+- Line (location: (source ID: 35, lines: 160..161, bytes: 4617..4642), hits: 1) -> "emit Canceled(msg.sender)"
+- Statement (location: (source ID: 35, lines: 160..161, bytes: 4617..4642), hits: 1) -> "emit Canceled(msg.sender)"
+- Line (location: (source ID: 35, lines: 164..167, bytes: 4656..4708), hits: 0) -> "receive() external payable{\n        deposit();\n    }"
+- Function "receive" (location: (source ID: 35, lines: 164..167, bytes: 4656..4708), hits: 0) -> "receive() external payable{\n        deposit();\n    }"
+- Line (location: (source ID: 35, lines: 165..166, bytes: 4692..4701), hits: 0) -> "deposit()"
+- Statement (location: (source ID: 35, lines: 165..166, bytes: 4692..4701), hits: 0) -> "deposit()"
+- Line (location: (source ID: 35, lines: 169..173, bytes: 4715..4829), hits: 4) -> "function tokenBalanceOf(address ...rn token.balanceOf(user);\n\n    }"
+- Function "tokenBalanceOf" (location: (source ID: 35, lines: 169..173, bytes: 4715..4829), hits: 4) -> "function tokenBalanceOf(address ...rn token.balanceOf(user);\n\n    }"
+- Line (location: (source ID: 35, lines: 170..171, bytes: 4793..4821), hits: 4) -> "return token.balanceOf(user)"
+- Statement (location: (source ID: 35, lines: 170..171, bytes: 4793..4821), hits: 4) -> "return token.balanceOf(user)"
+- Statement (location: (source ID: 35, lines: 170..171, bytes: 4800..4821), hits: 4) -> "token.balanceOf(user)"
+- Line (location: (source ID: 35, lines: 175..178, bytes: 4836..4938), hits: 2) -> "function balanceOf(address user)...    return balances[user];\n    }"
+- Function "balanceOf" (location: (source ID: 35, lines: 175..178, bytes: 4836..4938), hits: 2) -> "function balanceOf(address user)...    return balances[user];\n    }"
+- Line (location: (source ID: 35, lines: 176..177, bytes: 4910..4931), hits: 2) -> "return balances[user]"
+- Statement (location: (source ID: 35, lines: 176..177, bytes: 4910..4931), hits: 2) -> "return balances[user]"
+- Line (location: (source ID: 35, lines: 180..183, bytes: 4945..5066), hits: 1) -> "function getUserPositionAmount(a...rn positions[user].amount;\n    }"
+- Function "getUserPositionAmount" (location: (source ID: 35, lines: 180..183, bytes: 4945..5066), hits: 1) -> "function getUserPositionAmount(a...rn positions[user].amount;\n    }"
+- Line (location: (source ID: 35, lines: 181..182, bytes: 5030..5059), hits: 1) -> "return positions[user].amount"
+- Statement (location: (source ID: 35, lines: 181..182, bytes: 5030..5059), hits: 1) -> "return positions[user].amount"
+- Line (location: (source ID: 35, lines: 185..188, bytes: 5073..5194), hits: 1) -> "function getUserPositionPeriod(a...rn positions[user].period;\n    }"
+- Function "getUserPositionPeriod" (location: (source ID: 35, lines: 185..188, bytes: 5073..5194), hits: 1) -> "function getUserPositionPeriod(a...rn positions[user].period;\n    }"
+- Line (location: (source ID: 35, lines: 186..187, bytes: 5158..5187), hits: 1) -> "return positions[user].period"
+- Statement (location: (source ID: 35, lines: 186..187, bytes: 5158..5187), hits: 1) -> "return positions[user].period"
+- Line (location: (source ID: 35, lines: 190..193, bytes: 5201..5318), hits: 0) -> "function getUserPostions(address...   return positions[user];\n    }"
+- Function "getUserPostions" (location: (source ID: 35, lines: 190..193, bytes: 5201..5318), hits: 0) -> "function getUserPostions(address...   return positions[user];\n    }"
+- Line (location: (source ID: 35, lines: 191..192, bytes: 5289..5311), hits: 0) -> "return positions[user]"
+- Statement (location: (source ID: 35, lines: 191..192, bytes: 5289..5311), hits: 0) -> "return positions[user]"
+
+src/TokenX.sol:
+- Line (location: (source ID: 36, lines: 10..13, bytes: 169..250), hits: 16) -> "constructor()ERC20(\"TokenX\", \"TK...t(msg.sender, 1000000e18);\n    }"
+- Function "constructor" (location: (source ID: 36, lines: 10..13, bytes: 169..250), hits: 16) -> "constructor()ERC20(\"TokenX\", \"TK...t(msg.sender, 1000000e18);\n    }"
+- Line (location: (source ID: 36, lines: 11..12, bytes: 214..243), hits: 16) -> "_mint(msg.sender, 1000000e18)"
+- Statement (location: (source ID: 36, lines: 11..12, bytes: 214..243), hits: 16) -> "_mint(msg.sender, 1000000e18)"
+
+Anchors for Contract "DCA" (solc 0.8.30, source ID 35):
+- creation IC 5 -> Item 0: Line (location: (source ID: 35, lines: 45..48, bytes: 1336..1386), hits: 16)
+- creation IC 5 -> Item 1: Function "constructor" (location: (source ID: 35, lines: 45..48, bytes: 1336..1386), hits: 16)
+- creation IC 16 -> Item 2: Line (location: (source ID: 35, lines: 46..47, bytes: 1359..1379), hits: 16)
+- creation IC 16 -> Item 3: Statement (location: (source ID: 35, lines: 46..47, bytes: 1359..1379), hits: 16)
+-  runtime IC 243 -> Item 4: Line (location: (source ID: 35, lines: 50..70, bytes: 1393..2069), hits: 12)
+-  runtime IC 243 -> Item 5: Function "setPosition" (location: (source ID: 35, lines: 50..70, bytes: 1393..2069), hits: 12)
+-  runtime IC 1101 -> Item 6: Line (location: (source ID: 35, lines: 51..52, bytes: 1468..1479), hits: 12)
+-  runtime IC 1101 -> Item 7: Statement (location: (source ID: 35, lines: 51..52, bytes: 1468..1479), hits: 12)
+-  runtime IC 1108 -> Item 8: Statement (location: (source ID: 35, lines: 51..52, bytes: 1481..1511), hits: 1)
+-  runtime IC 1108 -> Item 9: Branch (branch: 0, path: 0) (location: (source ID: 35, lines: 51..52, bytes: 1481..1511), hits: 1)
+-  runtime IC 1158 -> Item 10: Line (location: (source ID: 35, lines: 52..53, bytes: 1524..1535), hits: 11)
+-  runtime IC 1158 -> Item 11: Statement (location: (source ID: 35, lines: 52..53, bytes: 1524..1535), hits: 11)
+-  runtime IC 1167 -> Item 12: Statement (location: (source ID: 35, lines: 52..53, bytes: 1537..1577), hits: 1)
+-  runtime IC 1167 -> Item 13: Branch (branch: 1, path: 0) (location: (source ID: 35, lines: 52..53, bytes: 1537..1577), hits: 1)
+-  runtime IC 1298 -> Item 14: Line (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1)
+-  runtime IC 1298 -> Item 15: Statement (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1)
+-  runtime IC 1298 -> Item 16: Branch (branch: 2, path: 0) (location: (source ID: 35, lines: 53..54, bytes: 1620..1655), hits: 1)
+-  runtime IC 1348 -> Item 17: Line (location: (source ID: 35, lines: 54..60, bytes: 1665..1837), hits: 9)
+-  runtime IC 1348 -> Item 18: Statement (location: (source ID: 35, lines: 54..60, bytes: 1665..1837), hits: 9)
+-  runtime IC 1387 -> Item 19: Line (location: (source ID: 35, lines: 61..62, bytes: 1848..1880), hits: 9)
+-  runtime IC 1387 -> Item 20: Statement (location: (source ID: 35, lines: 61..62, bytes: 1848..1880), hits: 9)
+-  runtime IC 1510 -> Item 21: Line (location: (source ID: 35, lines: 62..63, bytes: 1893..1912), hits: 9)
+-  runtime IC 1510 -> Item 22: Statement (location: (source ID: 35, lines: 62..63, bytes: 1893..1912), hits: 9)
+-  runtime IC 1588 -> Item 23: Branch (branch: 3, path: 0) (location: (source ID: 35, lines: 62..66, bytes: 1913..1999), hits: 9)
+-  runtime IC 1588 -> Item 24: Line (location: (source ID: 35, lines: 63..64, bytes: 1927..1949), hits: 9)
+-  runtime IC 1588 -> Item 25: Statement (location: (source ID: 35, lines: 63..64, bytes: 1927..1949), hits: 9)
+-  runtime IC 1684 -> Item 26: Line (location: (source ID: 35, lines: 64..65, bytes: 1963..1988), hits: 9)
+-  runtime IC 1684 -> Item 27: Statement (location: (source ID: 35, lines: 64..65, bytes: 1963..1988), hits: 9)
+-  runtime IC 1770 -> Item 28: Line (location: (source ID: 35, lines: 68..69, bytes: 2018..2062), hits: 9)
+-  runtime IC 1770 -> Item 29: Statement (location: (source ID: 35, lines: 68..69, bytes: 2018..2062), hits: 9)
+-  runtime IC 626 -> Item 30: Line (location: (source ID: 35, lines: 74..81, bytes: 2078..2270), hits: 14)
+-  runtime IC 626 -> Item 31: Function "deposit" (location: (source ID: 35, lines: 74..81, bytes: 2078..2270), hits: 14)
+-  runtime IC 881 -> Item 32: Line (location: (source ID: 35, lines: 75..76, bytes: 2125..2139), hits: 14)
+-  runtime IC 881 -> Item 33: Statement (location: (source ID: 35, lines: 75..76, bytes: 2125..2139), hits: 14)
+-  runtime IC 888 -> Item 34: Statement (location: (source ID: 35, lines: 75..76, bytes: 2141..2171), hits: 1)
+-  runtime IC 888 -> Item 35: Branch (branch: 4, path: 0) (location: (source ID: 35, lines: 75..76, bytes: 2141..2171), hits: 1)
+-  runtime IC 938 -> Item 36: Line (location: (source ID: 35, lines: 77..78, bytes: 2182..2215), hits: 13)
+-  runtime IC 938 -> Item 37: Statement (location: (source ID: 35, lines: 77..78, bytes: 2182..2215), hits: 13)
+-  runtime IC 1021 -> Item 38: Line (location: (source ID: 35, lines: 79..80, bytes: 2226..2263), hits: 13)
+-  runtime IC 1021 -> Item 39: Statement (location: (source ID: 35, lines: 79..80, bytes: 2226..2263), hits: 13)
+-  runtime IC 465 -> Item 40: Line (location: (source ID: 35, lines: 83..92, bytes: 2277..2718), hits: 4)
+-  runtime IC 465 -> Item 41: Function "checkUpkeep" (location: (source ID: 35, lines: 83..92, bytes: 2277..2718), hits: 4)
+-  runtime IC 2032 -> Item 42: Line (location: (source ID: 35, lines: 84..85, bytes: 2419..2432), hits: 4)
+-  runtime IC 2032 -> Item 43: Statement (location: (source ID: 35, lines: 84..85, bytes: 2419..2432), hits: 4)
+-  runtime IC 2037 -> Item 44: Statement (location: (source ID: 35, lines: 84..85, bytes: 2434..2450), hits: 5)
+-  runtime IC 2389 -> Item 45: Statement (location: (source ID: 35, lines: 84..85, bytes: 2452..2455), hits: 1)
+-  runtime IC 2050 -> Item 46: Line (location: (source ID: 35, lines: 85..86, bytes: 2470..2493), hits: 3)
+-  runtime IC 2050 -> Item 47: Statement (location: (source ID: 35, lines: 85..86, bytes: 2470..2493), hits: 3)
+-  runtime IC 2113 -> Item 48: Line (location: (source ID: 35, lines: 86..87, bytes: 2510..2608), hits: 3)
+-  runtime IC 2113 -> Item 49: Statement (location: (source ID: 35, lines: 86..87, bytes: 2510..2608), hits: 3)
+-  runtime IC 2260 -> Item 50: Statement (location: (source ID: 35, lines: 86..87, bytes: 2536..2582), hits: 3)
+-  runtime IC 2196 -> Item 51: Statement (location: (source ID: 35, lines: 86..87, bytes: 2536..2608), hits: 3)
+-  runtime IC 2343 -> Item 52: Branch (branch: 5, path: 0) (location: (source ID: 35, lines: 86..89, bytes: 2610..2674), hits: 2)
+-  runtime IC 2343 -> Item 53: Line (location: (source ID: 35, lines: 87..88, bytes: 2628..2659), hits: 2)
+-  runtime IC 2343 -> Item 54: Statement (location: (source ID: 35, lines: 87..88, bytes: 2628..2659), hits: 2)
+-  runtime IC 2403 -> Item 55: Line (location: (source ID: 35, lines: 90..91, bytes: 2693..2711), hits: 2)
+-  runtime IC 2403 -> Item 56: Statement (location: (source ID: 35, lines: 90..91, bytes: 2693..2711), hits: 2)
+-  runtime IC 365 -> Item 57: Line (location: (source ID: 35, lines: 94..98, bytes: 2725..2877), hits: 1)
+-  runtime IC 365 -> Item 58: Function "performUpkeep" (location: (source ID: 35, lines: 94..98, bytes: 2725..2877), hits: 1)
+-  runtime IC 1925 -> Item 59: Line (location: (source ID: 35, lines: 95..96, bytes: 2796..2845), hits: 1)
+-  runtime IC 1925 -> Item 60: Statement (location: (source ID: 35, lines: 95..96, bytes: 2796..2845), hits: 1)
+-  runtime IC 1926 -> Item 61: Statement (location: (source ID: 35, lines: 95..96, bytes: 2811..2845), hits: 1)
+-  runtime IC 1943 -> Item 62: Line (location: (source ID: 35, lines: 96..97, bytes: 2855..2870), hits: 1)
+-  runtime IC 1943 -> Item 63: Statement (location: (source ID: 35, lines: 96..97, bytes: 2855..2870), hits: 1)
+-  runtime IC 343 -> Item 64: Line (location: (source ID: 35, lines: 100..107, bytes: 2884..2971), hits: 5)
+-  runtime IC 343 -> Item 65: Function "withdraw" (location: (source ID: 35, lines: 100..107, bytes: 2884..2971), hits: 5)
+-  runtime IC 1914 -> Item 66: Line (location: (source ID: 35, lines: 101..102, bytes: 2923..2944), hits: 5)
+-  runtime IC 1914 -> Item 67: Statement (location: (source ID: 35, lines: 101..102, bytes: 2923..2944), hits: 5)
+-  runtime IC 3696 -> Item 68: Line (location: (source ID: 35, lines: 108..136, bytes: 2977..3857), hits: 6)
+-  runtime IC 3696 -> Item 69: Function "_withdraw" (location: (source ID: 35, lines: 108..136, bytes: 2977..3857), hits: 6)
+-  runtime IC 3697 -> Item 70: Line (location: (source ID: 35, lines: 109..110, bytes: 3028..3091), hits: 6)
+-  runtime IC 3697 -> Item 71: Statement (location: (source ID: 35, lines: 109..110, bytes: 3028..3091), hits: 6)
+-  runtime IC 3698 -> Item 72: Statement (location: (source ID: 35, lines: 109..110, bytes: 3050..3091), hits: 6)
+-  runtime IC 3795 -> Item 73: Line (location: (source ID: 35, lines: 110..111, bytes: 3104..3127), hits: 6)
+-  runtime IC 3795 -> Item 74: Statement (location: (source ID: 35, lines: 110..111, bytes: 3104..3127), hits: 6)
+-  runtime IC 3875 -> Item 75: Statement (location: (source ID: 35, lines: 110..111, bytes: 3129..3160), hits: 1)
+-  runtime IC 3875 -> Item 76: Branch (branch: 6, path: 0) (location: (source ID: 35, lines: 110..111, bytes: 3129..3160), hits: 1)
+-  runtime IC 3989 -> Item 77: Line (location: (source ID: 35, lines: 111..112, bytes: 3173..3219), hits: 5)
+-  runtime IC 3989 -> Item 78: Statement (location: (source ID: 35, lines: 111..112, bytes: 3173..3219), hits: 5)
+-  runtime IC 3925 -> Item 79: Statement (location: (source ID: 35, lines: 111..112, bytes: 3173..3244), hits: 5)
+-  runtime IC 4070 -> Item 80: Statement (location: (source ID: 35, lines: 111..112, bytes: 3246..3280), hits: 1)
+-  runtime IC 4070 -> Item 81: Branch (branch: 7, path: 0) (location: (source ID: 35, lines: 111..112, bytes: 3246..3280), hits: 1)
+-  runtime IC 4120 -> Item 82: Line (location: (source ID: 35, lines: 112..113, bytes: 3293..3321), hits: 4)
+-  runtime IC 4120 -> Item 83: Statement (location: (source ID: 35, lines: 112..113, bytes: 3293..3321), hits: 4)
+-  runtime IC 4189 -> Item 84: Statement (location: (source ID: 35, lines: 112..113, bytes: 3323..3364), hits: 1)
+-  runtime IC 4189 -> Item 85: Branch (branch: 8, path: 0) (location: (source ID: 35, lines: 112..113, bytes: 3323..3364), hits: 1)
+-  runtime IC 4239 -> Item 86: Line (location: (source ID: 35, lines: 115..116, bytes: 3384..3413), hits: 3)
+-  runtime IC 4239 -> Item 87: Statement (location: (source ID: 35, lines: 115..116, bytes: 3384..3413), hits: 3)
+-  runtime IC 4322 -> Item 88: Line (location: (source ID: 35, lines: 117..118, bytes: 3424..3469), hits: 3)
+-  runtime IC 4322 -> Item 89: Statement (location: (source ID: 35, lines: 117..118, bytes: 3424..3469), hits: 3)
+-  runtime IC 4388 -> Item 90: Line (location: (source ID: 35, lines: 119..120, bytes: 3480..3526), hits: 3)
+-  runtime IC 4388 -> Item 91: Statement (location: (source ID: 35, lines: 119..120, bytes: 3480..3526), hits: 3)
+-  runtime IC 4457 -> Item 92: Line (location: (source ID: 35, lines: 121..122, bytes: 3540..3570), hits: 3)
+-  runtime IC 4457 -> Item 93: Statement (location: (source ID: 35, lines: 121..122, bytes: 3540..3570), hits: 3)
+-  runtime IC 4456 -> Item 94: Statement (location: (source ID: 35, lines: 121..122, bytes: 3540..3585), hits: 3)
+-  runtime IC 4616 -> Item 95: Branch (branch: 9, path: 0) (location: (source ID: 35, lines: 121..124, bytes: 3586..3639), hits: 0)
+-  runtime IC 4665 -> Item 96: Branch (branch: 9, path: 1) (location: (source ID: 35, lines: 121..126, bytes: 3537..3706), hits: 3)
+-  runtime IC 4616 -> Item 97: Line (location: (source ID: 35, lines: 122..123, bytes: 3600..3628), hits: 0)
+-  runtime IC 4616 -> Item 98: Statement (location: (source ID: 35, lines: 122..123, bytes: 3600..3628), hits: 0)
+-  runtime IC 4666 -> Item 99: Line (location: (source ID: 35, lines: 124..125, bytes: 3657..3695), hits: 3)
+-  runtime IC 4666 -> Item 100: Statement (location: (source ID: 35, lines: 124..125, bytes: 3657..3695), hits: 3)
+-  runtime IC 4742 -> Item 101: Line (location: (source ID: 35, lines: 129..130, bytes: 3729..3748), hits: 3)
+-  runtime IC 4742 -> Item 102: Statement (location: (source ID: 35, lines: 129..130, bytes: 3729..3748), hits: 3)
+-  runtime IC 4810 -> Item 103: Branch (branch: 10, path: 0) (location: (source ID: 35, lines: 129..132, bytes: 3749..3804), hits: 0)
+-  runtime IC 4810 -> Item 104: Line (location: (source ID: 35, lines: 130..131, bytes: 3763..3793), hits: 0)
+-  runtime IC 4810 -> Item 105: Statement (location: (source ID: 35, lines: 130..131, bytes: 3763..3793), hits: 0)
+-  runtime IC 4897 -> Item 106: Line (location: (source ID: 35, lines: 133..134, bytes: 3814..3849), hits: 3)
+-  runtime IC 4897 -> Item 107: Statement (location: (source ID: 35, lines: 133..134, bytes: 3814..3849), hits: 3)
+-  runtime IC 586 -> Item 108: Line (location: (source ID: 35, lines: 137..153, bytes: 3863..4450), hits: 0)
+-  runtime IC 586 -> Item 109: Function "updatePositionAmount" (location: (source ID: 35, lines: 137..153, bytes: 3863..4450), hits: 0)
+-  runtime IC 2501 -> Item 110: Line (location: (source ID: 35, lines: 138..139, bytes: 3934..3963), hits: 0)
+-  runtime IC 2501 -> Item 111: Statement (location: (source ID: 35, lines: 138..139, bytes: 3934..3963), hits: 0)
+-  runtime IC 2581 -> Item 112: Statement (location: (source ID: 35, lines: 138..139, bytes: 3965..3996), hits: 0)
+-  runtime IC 2581 -> Item 113: Branch (branch: 11, path: 0) (location: (source ID: 35, lines: 138..139, bytes: 3965..3996), hits: 0)
+-  runtime IC 2631 -> Item 114: Line (location: (source ID: 35, lines: 139..140, bytes: 4009..4023), hits: 0)
+-  runtime IC 2631 -> Item 115: Statement (location: (source ID: 35, lines: 139..140, bytes: 4009..4023), hits: 0)
+-  runtime IC 2638 -> Item 116: Statement (location: (source ID: 35, lines: 139..140, bytes: 4025..4055), hits: 0)
+-  runtime IC 2638 -> Item 117: Branch (branch: 12, path: 0) (location: (source ID: 35, lines: 139..140, bytes: 4025..4055), hits: 0)
+-  runtime IC 2688 -> Item 118: Line (location: (source ID: 35, lines: 140..141, bytes: 4065..4124), hits: 0)
+-  runtime IC 2688 -> Item 119: Statement (location: (source ID: 35, lines: 140..141, bytes: 4065..4124), hits: 0)
+-  runtime IC 2755 -> Item 120: Line (location: (source ID: 35, lines: 141..147, bytes: 4134..4323), hits: 0)
+-  runtime IC 2755 -> Item 121: Statement (location: (source ID: 35, lines: 141..147, bytes: 4134..4323), hits: 0)
+-  runtime IC 2794 -> Item 122: Line (location: (source ID: 35, lines: 149..150, bytes: 4335..4367), hits: 0)
+-  runtime IC 2794 -> Item 123: Statement (location: (source ID: 35, lines: 149..150, bytes: 4335..4367), hits: 0)
+-  runtime IC 2917 -> Item 124: Line (location: (source ID: 35, lines: 151..152, bytes: 4378..4443), hits: 0)
+-  runtime IC 2917 -> Item 125: Statement (location: (source ID: 35, lines: 151..152, bytes: 4378..4443), hits: 0)
+-  runtime IC 816 -> Item 126: Line (location: (source ID: 35, lines: 155..162, bytes: 4457..4649), hits: 1)
+-  runtime IC 816 -> Item 127: Function "cancel" (location: (source ID: 35, lines: 155..162, bytes: 4457..4649), hits: 1)
+-  runtime IC 3375 -> Item 128: Line (location: (source ID: 35, lines: 156..157, bytes: 4497..4526), hits: 1)
+-  runtime IC 3375 -> Item 129: Statement (location: (source ID: 35, lines: 156..157, bytes: 4497..4526), hits: 1)
+-  runtime IC 3455 -> Item 130: Statement (location: (source ID: 35, lines: 156..157, bytes: 4528..4559), hits: 0)
+-  runtime IC 3455 -> Item 131: Branch (branch: 13, path: 0) (location: (source ID: 35, lines: 156..157, bytes: 4528..4559), hits: 0)
+-  runtime IC 3505 -> Item 132: Line (location: (source ID: 35, lines: 158..159, bytes: 4570..4606), hits: 1)
+-  runtime IC 3505 -> Item 133: Statement (location: (source ID: 35, lines: 158..159, bytes: 4570..4606), hits: 1)
+-  runtime IC 3591 -> Item 134: Line (location: (source ID: 35, lines: 160..161, bytes: 4617..4642), hits: 1)
+-  runtime IC 3591 -> Item 135: Statement (location: (source ID: 35, lines: 160..161, bytes: 4617..4642), hits: 1)
+-  runtime IC 230 -> Item 136: Line (location: (source ID: 35, lines: 164..167, bytes: 4656..4708), hits: 0)
+-  runtime IC 230 -> Item 137: Function "receive" (location: (source ID: 35, lines: 164..167, bytes: 4656..4708), hits: 0)
+-  runtime IC 230 -> Item 138: Line (location: (source ID: 35, lines: 165..166, bytes: 4692..4701), hits: 0)
+-  runtime IC 230 -> Item 139: Statement (location: (source ID: 35, lines: 165..166, bytes: 4692..4701), hits: 0)
+-  runtime IC 756 -> Item 140: Line (location: (source ID: 35, lines: 169..173, bytes: 4715..4829), hits: 4)
+-  runtime IC 756 -> Item 141: Function "tokenBalanceOf" (location: (source ID: 35, lines: 169..173, bytes: 4715..4829), hits: 4)
+-  runtime IC 3215 -> Item 142: Line (location: (source ID: 35, lines: 170..171, bytes: 4793..4821), hits: 4)
+-  runtime IC 3215 -> Item 143: Statement (location: (source ID: 35, lines: 170..171, bytes: 4793..4821), hits: 4)
+-  runtime IC 3215 -> Item 144: Statement (location: (source ID: 35, lines: 170..171, bytes: 4800..4821), hits: 4)
+-  runtime IC 526 -> Item 145: Line (location: (source ID: 35, lines: 175..178, bytes: 4836..4938), hits: 2)
+-  runtime IC 526 -> Item 146: Function "balanceOf" (location: (source ID: 35, lines: 175..178, bytes: 4836..4938), hits: 2)
+-  runtime IC 2432 -> Item 147: Line (location: (source ID: 35, lines: 176..177, bytes: 4910..4931), hits: 2)
+-  runtime IC 2432 -> Item 148: Statement (location: (source ID: 35, lines: 176..177, bytes: 4910..4931), hits: 2)
+-  runtime IC 636 -> Item 149: Line (location: (source ID: 35, lines: 180..183, bytes: 4945..5066), hits: 1)
+-  runtime IC 636 -> Item 150: Function "getUserPositionAmount" (location: (source ID: 35, lines: 180..183, bytes: 4945..5066), hits: 1)
+-  runtime IC 3003 -> Item 151: Line (location: (source ID: 35, lines: 181..182, bytes: 5030..5059), hits: 1)
+-  runtime IC 3003 -> Item 152: Statement (location: (source ID: 35, lines: 181..182, bytes: 5030..5059), hits: 1)
+-  runtime IC 405 -> Item 153: Line (location: (source ID: 35, lines: 185..188, bytes: 5073..5194), hits: 1)
+-  runtime IC 405 -> Item 154: Function "getUserPositionPeriod" (location: (source ID: 35, lines: 185..188, bytes: 5073..5194), hits: 1)
+-  runtime IC 1958 -> Item 155: Line (location: (source ID: 35, lines: 186..187, bytes: 5158..5187), hits: 1)
+-  runtime IC 1958 -> Item 156: Statement (location: (source ID: 35, lines: 186..187, bytes: 5158..5187), hits: 1)
+-  runtime IC 696 -> Item 157: Line (location: (source ID: 35, lines: 190..193, bytes: 5201..5318), hits: 0)
+-  runtime IC 696 -> Item 158: Function "getUserPostions" (location: (source ID: 35, lines: 190..193, bytes: 5201..5318), hits: 0)
+-  runtime IC 3081 -> Item 159: Line (location: (source ID: 35, lines: 191..192, bytes: 5289..5311), hits: 0)
+-  runtime IC 3081 -> Item 160: Statement (location: (source ID: 35, lines: 191..192, bytes: 5289..5311), hits: 0)
+
+Anchors for Contract "TokenX" (solc 0.8.30, source ID 36):
+- creation IC 5 -> Item 161: Line (location: (source ID: 36, lines: 10..13, bytes: 169..250), hits: 16)
+- creation IC 5 -> Item 162: Function "constructor" (location: (source ID: 36, lines: 10..13, bytes: 169..250), hits: 16)
+- creation IC 159 -> Item 163: Line (location: (source ID: 36, lines: 11..12, bytes: 214..243), hits: 16)
+- creation IC 159 -> Item 164: Statement (location: (source ID: 36, lines: 11..12, bytes: 214..243), hits: 16)
+

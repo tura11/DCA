@@ -106,14 +106,13 @@ contract DCA is AutomationCompatibleInterface{
     }
 
     function _withdraw(address user) internal{
-         uint256 userTokenBalance = balances[user] * 1000; // 1ETH = 1000 TKX
+        uint256 ethRequired = (positions[user].amount * 1 ether) / 1000;
         if(!positions[user].active) revert DCA__PositionNotActive();
         if(block.timestamp - positions[user].lastExecuted < positions[user].period) revert DCA__YouCannotWithdrawYet();
-        if(userTokenBalance < positions[user].amount) revert DCA__NotEnoughMoneyForWithdrawal();
+        if(balances[user] < ethRequired) revert DCA__NotEnoughMoneyForWithdrawal();
         
 
-        userTokenBalance -= positions[user].amount;
-        balances[user] -= (positions[user].amount * 1 ether) / 1000;
+        balances[user] -= ethRequired;
 
         uint256 amountToSend = positions[user].amount;
 
