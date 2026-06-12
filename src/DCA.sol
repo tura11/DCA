@@ -118,11 +118,9 @@ contract DCA is AutomationCompatibleInterface{
 
         positions[user].lastExecuted = block.timestamp;
 
-        if(token.balanceOf(address(this)) < amountToSend){
-            revert DCA__NotEnoughMoney();
-        }else{
-            token.safeTransfer(user, amountToSend);
-        }
+        
+        token.safeTransfer(user, amountToSend);
+       
         
 
 
