@@ -33,10 +33,9 @@ contract DCATest is Test {
         dca.deposit{value: 0}();
     }
 
-
     function testReceiveFunctionDirectDeposit() external {
         vm.prank(user);
-        (bool success, ) = address(dca).call{value: 2 ether}("");
+        (bool success,) = address(dca).call{value: 2 ether}("");
         assertTrue(success);
         assertEq(dca.balanceOf(user), 2 ether);
     }
@@ -50,7 +49,6 @@ contract DCATest is Test {
         vm.stopPrank();
     }
 
-   
     function testSetPositionDoesNotDuplicateUser() external {
         vm.startPrank(user);
         dca.deposit{value: 5 ether}();
@@ -129,37 +127,30 @@ contract DCATest is Test {
         vm.stopPrank();
     }
 
-
     function testWithdrawDeactivatesPositionWhenBalanceGoesToZero() public {
         vm.startPrank(user);
-      
+
         dca.deposit{value: 1 ether}();
         dca.setPosition(1000, 3 days);
         vm.warp(block.timestamp + 4 days);
-        
+
         dca.withdraw();
-        
+
         assertEq(dca.balanceOf(user), 0);
-        
-  
+
         DCA.Position memory position = dca.getUserPostions(user);
         assertFalse(position.active);
-        
+
         vm.stopPrank();
     }
-
-  
-    
- 
 
     function testUpdatePositionAmountSuccessful() public {
         vm.startPrank(user);
         dca.deposit{value: 5 ether}();
         dca.setPosition(1000, 3 days);
-        
- 
+
         dca.updatePositionAmount(2500);
-        
+
         assertEq(dca.getUserPositionAmount(user), 2500);
         assertEq(dca.getUserPositionPeriod(user), 3 days);
         vm.stopPrank();
@@ -167,7 +158,7 @@ contract DCATest is Test {
 
     function testUpdatePositionAmountRevertPositionNotActive() public {
         vm.startPrank(user);
-     
+
         vm.expectRevert(DCA.DCA__PositionNotActive.selector);
         dca.updatePositionAmount(1500);
         vm.stopPrank();
@@ -177,7 +168,7 @@ contract DCATest is Test {
         vm.startPrank(user);
         dca.deposit{value: 5 ether}();
         dca.setPosition(1000, 3 days);
-      
+
         vm.expectRevert(DCA.DCA__AmountCantBeZero.selector);
         dca.updatePositionAmount(0);
         vm.stopPrank();
@@ -218,7 +209,7 @@ contract DCATest is Test {
 
         vm.warp(block.timestamp + 1 days);
 
-        (bool upkeepNeeded, ) = dca.checkUpkeep("");
+        (bool upkeepNeeded,) = dca.checkUpkeep("");
         assertFalse(upkeepNeeded);
     }
 

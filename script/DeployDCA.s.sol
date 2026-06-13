@@ -12,6 +12,5 @@ contract DeployDCA is Script {
         return dca;
     }
 
-
     function test() public {}
 }
